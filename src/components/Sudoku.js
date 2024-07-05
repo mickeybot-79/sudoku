@@ -10,8 +10,8 @@ const Sudoku = () => {
             for (let i = 0; i < 10000000; i++) {
                 var arr = [1, 2, 3, 4, 5, 6, 7, 8, 9].sort(() => Math.random() - 0.5)
                 var valid = true
+                //check for unique column values
                 for (let j = 0; j < randomArrays.length; j++) {
-                    //check for unique column values
                     for (let k = 0; k < 9; k++) {
                         if (randomArrays[j][k] === arr[k] && randomArrays.length < 9) {
                             valid = false
