@@ -7,7 +7,7 @@ const Sudoku = () => {
 
     useEffect(() => {
         setSudoku(() => {
-            var newSudoku = createSudoku()
+            var newSudoku = createSudoku({ start: Date.now() })
             return newSudoku
         })
     }, [setSudoku])
