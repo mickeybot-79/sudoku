@@ -1,16 +1,8 @@
-import { useState, useEffect } from "react"
-import createSudoku from "./createSudoku"
+import { useSelector } from "react-redux"
 
 const Sudoku = () => {
 
-    const [sudoku, setSudoku] = useState()
-
-    useEffect(() => {
-        setSudoku(() => {
-            var newSudoku = createSudoku({ start: Date.now() })
-            return newSudoku
-        })
-    }, [setSudoku])
+    const sudoku = useSelector((state) => state.sudoku.sudoku)
 
     return (
         <table>

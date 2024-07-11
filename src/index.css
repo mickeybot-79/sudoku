@@ -11,3 +11,62 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+#title {
+  text-align: center;
+  font-size: 50px;
+}
+
+#content {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  width: 100%;
+}
+
+table {
+  position: relative;
+  background-color: rgba(255, 255, 255, 0.87);
+}
+
+table, tr, td {
+  border: 1px solid;
+  border-collapse: collapse;
+}
+
+td {
+  width: 70px;
+  min-width: 70px;
+  height: 70px;
+  min-height: 70px;
+  text-align: center;
+  font-weight: 700;
+  font-size: 35px;
+}
+
+.square1,
+.square3,
+.square5,
+.square7,
+.square9 {
+  background-color: grey;
+}
+
+#loader {
+  position: absolute;
+  top: 0;
+  width: 50%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.685);
+  border-radius: 10px;
+  place-content: center;
+  min-width: 650px;
+  max-width: 675px;
+  min-height: 700px;
+}
+
+#prompt {
+  font-size: 50px;
+  color: white;
+  text-align: center;
+}
