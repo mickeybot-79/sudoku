@@ -3,7 +3,7 @@ import createSudoku from "./createSudoku";
 
 const sudokuSlice = createSlice({
     name: 'sudoku',
-    initialState: { sudoku: [] },
+    initialState: { sudoku: [], slicedCells: [] },
     reducers: {
         newSudoku: (state, action) => {
             const newGrid = createSudoku(action.payload)
