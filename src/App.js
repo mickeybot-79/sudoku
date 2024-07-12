@@ -3,14 +3,16 @@ import './App.css'
 import Sudoku from './components/Sudoku'
 import DefaultGrid from './components/DefaultGrid'
 import { useDispatch } from 'react-redux'
-import { newSudoku } from './components/sudokuSlice'
+import { newSudoku, sliceCells } from './components/sudokuSlice'
 
 function App() {
   document.title = 'Sudoku'
 
   const dispatch = useDispatch()
 
-  const setGrid = (start) => dispatch(newSudoku({ start })) 
+  const setGrid = (start) => dispatch(newSudoku({ start }))
+
+  //const setSlicedCells = (array) => dispatch(sliceCells(array))
 
   const [displayGrid, setDisplayGrid] = useState(true)
   
@@ -19,6 +21,8 @@ function App() {
   useEffect(() => {
     if (effectRan.current === true) {
       setGrid(Date.now())
+
+      //setSlicedCells(Array.from({ length: 81 }, (_, i) => i))
 
       setDisplayGrid(false)
     }    
