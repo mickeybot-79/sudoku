@@ -5,7 +5,7 @@ const Sudoku = () => {
 
     const grid = useSelector((state) => state.sudoku.sudoku)
 
-    //const cellsToDisplay = useSelector((state) => state.sudoku.slicedCells)
+    const cellsToDisplay = useSelector((state) => state.sudoku.slicedCells)
 
     const [allCells, setAllCells] = useState([])
 
@@ -26,8 +26,8 @@ const Sudoku = () => {
                 if ((i > 56 && i < 60) || (i > 65 && i < 69) || (i > 74 && i < 78)) cellClass = 'square8'
                 if ((i > 59 && i < 63) || (i > 68 && i < 72) || (i > 77 && i < 81)) cellClass = 'square9'
 
-                //allCellElements.push(<td id={i} key={i} className={cellClass} contentEditable={cellsToDisplay.includes(i) ? false : true}>{cellsToDisplay.includes(i) ? grid[i] : ''}</td>)
-                allCellElements.push(<td id={i} key={i} className={cellClass}>{grid[i]}</td>)
+                allCellElements.push(<td id={i} key={i} className={cellClass} contentEditable={cellsToDisplay.includes(i) ? false : true}>{cellsToDisplay.includes(i) ? grid[i] : ''}</td>)
+                //allCellElements.push(<td id={i} key={i} className={cellClass}>{grid[i]}</td>)
             }
 
             for (let j = 0; j < 9; j++) {
@@ -37,7 +37,7 @@ const Sudoku = () => {
 
             return allRowElements
         })
-    }, [grid])
+    }, [grid, cellsToDisplay])
 
     return (
         <table>

@@ -13,10 +13,14 @@ const sudokuSlice = createSlice({
             const displayCells = action.payload
             const resultCells = displayCells.sort(() => Math.random() - 0.5).slice(20, 60)
             state.slicedCells =  resultCells
+        },
+        viewSolution: (state, action) => {
+            const displayCells = action.payload
+            state.slicedCells = displayCells
         }
     }
 })
 
-export const { newSudoku, sliceCells } = sudokuSlice.actions
+export const { newSudoku, sliceCells, viewSolution } = sudokuSlice.actions
 
 export default sudokuSlice.reducer
