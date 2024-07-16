@@ -53,14 +53,14 @@ const Sudoku = ({ checkCells }) => {
             const allCellElements = [...document.querySelectorAll('td')]
             for (let i = 0; i < 81; i++) {
                 //console.log(allCells[i])
-                if (parseInt(allCellElements[i].innerHTML) !== grid[i]) {
-                    console.log(allCellElements[i].innerHTML, grid[i])
+                if (parseInt(allCellElements[i]?.innerHTML) !== grid[i]) {
+                    console.log(allCellElements[i]?.innerHTML, grid[i])
                     if (allCells[i].props.contentEditable === true) {
                         const currentCell = {
                             id: allCells[i].props.id,
                             className: `${allCells[i].props.className} incorrect`,
                             contentEditable: true,
-                            text: allCellElements[i].innerHTML
+                            text: allCellElements[i]?.innerHTML
                         }
                         const updatedCell = (
                             <td id={currentCell.id} key={currentCell.id} className={currentCell.className} contentEditable={currentCell.contentEditable}>{currentCell.text}</td>
@@ -77,7 +77,7 @@ const Sudoku = ({ checkCells }) => {
                             id: allCells[i].props.id,
                             className: `${allCells[i].props.className} correct`,
                             contentEditable: true,
-                            text: allCellElements[i].innerHTML
+                            text: allCellElements[i]?.innerHTML
                         }
                         const updatedCell = (
                             <td id={currentCell.id} key={currentCell.id} className={currentCell.className} contentEditable={currentCell.contentEditable}>{currentCell.text}</td>
