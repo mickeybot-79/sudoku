@@ -60,7 +60,17 @@ td {
 #options {
   margin-top: 40px;
   display: flex;
-  gap: 60px;
+  gap: 40px;
+}
+
+.correct {
+  border-color: black;
+  color: green
+}
+
+.incorrect {
+  border-color: black;
+  color: red;
 }
 
 .option {
