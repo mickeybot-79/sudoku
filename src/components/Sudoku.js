@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react"
 import { useSelector } from "react-redux"
-import { useDispatch } from "react-redux"
 
 const Sudoku = ({ checkCells }) => {
 
@@ -9,8 +8,6 @@ const Sudoku = ({ checkCells }) => {
     const cellsToDisplay = useSelector((state) => state.sudoku.slicedCells)
 
     const allUserInputs = useSelector((state) => state.sudoku.userInputs)
-
-    const dispatch = useDispatch()
 
     const [allCells, setAllCells] = useState([])
 
@@ -110,7 +107,7 @@ const Sudoku = ({ checkCells }) => {
             }
         }
 
-    }, [allCells, checkCells, dispatch, grid, allUserInputs])
+    }, [allCells, checkCells, grid, allUserInputs])
 
     return (
         <table>
