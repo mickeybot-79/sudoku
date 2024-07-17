@@ -65,12 +65,14 @@ td {
 
 .correct {
   border-color: black;
-  color: green
+  background-color: rgba(23, 126, 23, 0.212);
+  color: rgb(2, 189, 2)
 }
 
 .incorrect {
   border-color: black;
-  color: red;
+  background-color: rgba(223, 53, 53, 0.349);
+  color: rgb(255, 25, 25);
 }
 
 .option {

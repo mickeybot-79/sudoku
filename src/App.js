@@ -3,7 +3,7 @@ import './App.css'
 import Sudoku from './components/Sudoku'
 import DefaultGrid from './components/DefaultGrid'
 import { useDispatch } from 'react-redux'
-import { newSudoku, sliceCells, viewSolution, viewHint } from './components/sudokuSlice'
+import { newSudoku, sliceCells, viewSolution, viewHint, setInputs } from './components/sudokuSlice'
 import { useSelector } from 'react-redux'
 
 function App() {
@@ -19,7 +19,11 @@ function App() {
 
   const showHint = (index) => dispatch(viewHint(index))
 
+  const setUserInputs = (inputs) => dispatch(setInputs(inputs))
+
   const allUnslicedCells = useSelector((state) => state.sudoku.unSlicedCells)
+
+  const cellsToDisplay = useSelector((state) => state.sudoku.slicedCells)
 
   const [displayGrid, setDisplayGrid] = useState(true)
 
@@ -58,12 +62,41 @@ function App() {
   }
 
   const handleCheck = () => {
+    const allCellElements = [...document.querySelectorAll('td')]
+    const allCurrentInputs = []
+    for (let i = 0; i < 81; i++) {
+      if (allCellElements[i]?.innerHTML !== '' && !isNaN(parseInt(allCellElements[i]?.innerHTML))) {
+        allCurrentInputs.push(parseInt(allCellElements[i]?.innerHTML))
+      } else {
+        allCurrentInputs.push(0)
+      }
+    }
+    setUserInputs(allCurrentInputs)
     setCheckCells(true)
   }
 
 
   const handleUncheck = (allCells, setAllCells) => {
     setCheckCells(false)
+    const allCellElements = [...document.querySelectorAll('td')]
+    for (let i = 0; i < 81; i++) {
+      if (allCells.length > 0 && cellsToDisplay.includes(i)) {
+        const currentCell = {
+          id: allCells[i].props.id,
+          className: allCells[i].props.className,
+          contentEditable: true,
+          text: parseInt(allCellElements[i]?.innerHTML)
+        }
+        const updatedCell = (
+          <td id={currentCell.id} key={currentCell.id} className={currentCell.className} contentEditable={currentCell.contentEditable}>{currentCell.text}</td>
+        )
+        setAllCells((prevCells) => {
+          const updatedCells = prevCells
+          updatedCells.splice(i, 1, updatedCell)
+          return updatedCells
+        })
+      }
+    }
   }
 
 

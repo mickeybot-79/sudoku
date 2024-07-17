@@ -3,16 +3,27 @@ import createSudoku from "./createSudoku";
 
 const sudokuSlice = createSlice({
     name: 'sudoku',
-    initialState: { sudoku: [], slicedCells: [], unSlicedCells: [] },
+    initialState: { sudoku: [], slicedCells: [], unSlicedCells: [], userInputs: [] },
     reducers: {
         newSudoku: (state, action) => {
             const newGrid = createSudoku(action.payload)
             state.sudoku = newGrid
         },
         sliceCells: (state, action) => {
-            const resultCells = action.payload.sort(() => Math.random() - 0.5)
-            state.slicedCells =  resultCells.slice(20, 60)
-            state.unSlicedCells = [...resultCells.slice(0, 20), ...resultCells.slice(60, 81)]
+            const displayCells = action.payload.sort(() => Math.random() - 0.5)
+            const resultCells = displayCells.slice(20, 60)
+            state.slicedCells =  resultCells
+            state.unSlicedCells = [...displayCells.slice(0, 20), ...displayCells.slice(60, 81)]
+            const allInputs = []
+            const currentGrid = state.sudoku
+            for (let i = 0; i < 81; i++) {
+                if (resultCells.includes(i)) {
+                    allInputs.push(currentGrid[i])
+                } else {
+                    allInputs.push(0)
+                }
+            }
+            state.userInputs = allInputs
         },
         viewSolution: (state, action) => {
             const displayCells = action.payload
@@ -22,10 +33,14 @@ const sudokuSlice = createSlice({
             state.slicedCells.push(action.payload)
             const itemIndex = state.unSlicedCells.indexOf(action.payload)
             state.unSlicedCells.splice(itemIndex, 1)
+        },
+        setInputs: (state, action) => {
+            const allInputs = action.payload
+            state.userInputs = allInputs
         }
     }
 })
 
-export const { newSudoku, sliceCells, viewSolution, viewHint } = sudokuSlice.actions
+export const { newSudoku, sliceCells, viewSolution, viewHint, setInputs } = sudokuSlice.actions
 
 export default sudokuSlice.reducer
