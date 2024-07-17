@@ -37,6 +37,15 @@ const sudokuSlice = createSlice({
         setInputs: (state, action) => {
             const allInputs = action.payload
             state.userInputs = allInputs
+            const allUnslicedCells = []
+            for (let i = 0; i < 81; i++) {
+                if (allInputs[i] === 0) {
+                    allUnslicedCells.push(i)
+                } else if (state.slicedCells.length === 81) {
+                    state.slicedCells = Array.from({ length: 81 }, (_, i) => i)
+                }
+            }
+            state.unSlicedCells = allUnslicedCells
         }
     }
 })
