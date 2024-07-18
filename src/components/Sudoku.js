@@ -66,8 +66,8 @@ const Sudoku = ({ checkCells }) => {
     }, [allCells])
 
     useEffect(() => {
-        const allCellElements = [...document.querySelectorAll('td')]
         if (allCells.length > 0 && checkCells) {
+            const allCellElements = [...document.querySelectorAll('td')]
             for (let i = 0; i < 81; i++) {
                 if (allCellElements[i]?.innerHTML) {
                     if (parseInt(allCellElements[i]?.innerHTML) !== grid[i]) {

@@ -23,8 +23,6 @@ function App() {
 
   const allUnslicedCells = useSelector((state) => state.sudoku.unSlicedCells)
 
-  const cellsToDisplay = useSelector((state) => state.sudoku.slicedCells)
-
   const [displayGrid, setDisplayGrid] = useState(true)
 
   const [checkCells, setCheckCells] = useState(false)
@@ -76,27 +74,8 @@ function App() {
   }
 
 
-  const handleUncheck = (allCells, setAllCells) => {
+  const handleUncheck = () => {
     setCheckCells(false)
-    const allCellElements = [...document.querySelectorAll('td')]
-    for (let i = 0; i < 81; i++) {
-      if (allCells.length > 0 && cellsToDisplay.includes(i)) {
-        const currentCell = {
-          id: allCells[i].props.id,
-          className: allCells[i].props.className,
-          contentEditable: true,
-          text: parseInt(allCellElements[i]?.innerHTML)
-        }
-        const updatedCell = (
-          <td id={currentCell.id} key={currentCell.id} className={currentCell.className} contentEditable={currentCell.contentEditable}>{currentCell.text}</td>
-        )
-        setAllCells((prevCells) => {
-          const updatedCells = prevCells
-          updatedCells.splice(i, 1, updatedCell)
-          return updatedCells
-        })
-      }
-    }
   }
 
 
