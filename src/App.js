@@ -56,7 +56,7 @@ function App() {
       setSlicedCells(Array.from({ length: 81 }, (_, i) => i))
 
       setDisplayGrid(false)
-    }, 200)
+    }, 10)
   }
 
   const handleCheck = () => {

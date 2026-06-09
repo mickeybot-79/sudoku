@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <button onclick="createSudoku({start: Date.now()})" id="start-button">Start</button>
+    <script>
+        const createSudoku = ({ start }) => {
+
+            var randomArrays = [
+                [7, 6, 5, 4, 3, 8, 9, 2, 1],
+                [9, 1, 8, 7, 6, 2, 5, 3, 4],
+                [4, 3, 2, 5, 9, 1, 8, 6, 7],
+                [3, 5, 7, 6, 8, 4, 1, 9, 2]
+            ]
+            var count = 0
+            var end
+
+            // var countRestarted = 0
+
+            // var columnValid = 0
+            // var columnInvalid = 0
+
+            // var squareValid = 0
+            // var squareInvalid = 0
+
+            let resultingArr = []
+
+            const createGrid = () => {
+                if (randomArrays.length < 9) {
+                    end = Date.now()
+                    if ((end - start) >= 10000) {
+                        // console.log(count)
+                        // console.log(randomArrays)
+                        // const randomIndex = Math.floor((Math.random() * 20) + 1)
+                        // randomArrays = solutionArray[randomIndex]
+                        // console.log(`returned solution array ${randomIndex}`)
+                        // return
+                    } else {
+                        if (randomArrays.length === 0) {
+                            randomArrays.push([1, 2, 3, 4, 5, 6, 7, 8, 9].sort(() => Math.random() - 0.5))
+                            return
+                        } else {
+                            const randomArr = [1, 2, 3, 4, 5, 6, 7, 8, 9].sort(() => Math.random() - 0.5)
+                            for (let i = 0; i < 9; i++) {
+                                let discardedNumbers = []
+                                for (let j = 0; j < randomArrays.length; j++) {
+                                    discardedNumbers.push(randomArrays[j][i])
+                                }
+                                for (let j = 0; j < randomArr.length; j++) {
+                                    if (!resultingArr.includes(randomArr[j]) && !discardedNumbers.includes(randomArr[j])) {
+                                        resultingArr.push(randomArr[j])
+                                        break
+                                    }
+                                }
+                            }
+                            randomArrays.push(resultingArr)
+                        }
+                    }
+                }
+            }
+
+            createGrid()
+
+            // do {
+            //     createGrid()
+            // } while (randomArrays.length < 9)
+
+            // console.log('count restarted', countRestarted, 'times')
+            // console.log('columnValid', columnValid)
+            // console.log('columnInvalid', columnInvalid)
+            // console.log('squareValid', squareValid)
+            // console.log('squareInvalid', squareInvalid)
+
+            console.log('resultingArr', resultingArr)
+            console.log('randomArrays', randomArrays)
+
+            //return randomArrays.flat()
+        }
+    </script>
+</body>
+
+</html>

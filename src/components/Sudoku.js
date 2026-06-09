@@ -44,7 +44,8 @@ const Sudoku = ({ checkCells }) => {
                     cellText = grid[i]
                 }
 
-                allCellElements.push(<td id={i} key={i} className={cellClass} contentEditable={cellsToDisplay.includes(i) ? false : true}>{cellText}</td>)
+                //allCellElements.push(<td id={i} key={i} className={cellClass} contentEditable={cellsToDisplay.includes(i) ? false : true}>{cellText}</td>)
+                allCellElements.push(<td id={i} key={i} className={cellClass} contentEditable={false}>{cellText}</td>)
             }
 
             return allCellElements
