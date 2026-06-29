@@ -8,79 +8,111 @@
 </head>
 
 <body>
-    <button onclick="createSudoku({start: Date.now()})" id="start-button">Start</button>
+    <button onclick="" id="start-button">Start</button>
     <script>
-        const createSudoku = ({ start }) => {
+        function generateSudoku() {
+            const grid = Array.from({ length: 9 }, () => Array(9).fill(0));
 
-            var randomArrays = [
-                [7, 6, 5, 4, 3, 8, 9, 2, 1],
-                [9, 1, 8, 7, 6, 2, 5, 3, 4],
-                [4, 3, 2, 5, 9, 1, 8, 6, 7],
-                [3, 5, 7, 6, 8, 4, 1, 9, 2]
-            ]
-            var count = 0
-            var end
+            function isValid(grid, row, col, num) {
+                // Check row
+                if (grid[row].includes(num)) return false;
 
-            // var countRestarted = 0
+                // Check column
+                for (let r = 0; r < 9; r++) {
+                    if (grid[r][col] === num) return false;
+                }
 
-            // var columnValid = 0
-            // var columnInvalid = 0
+                // Check 3x3 box
+                const boxRow = Math.floor(row / 3) * 3;
+                const boxCol = Math.floor(col / 3) * 3;
+                for (let r = boxRow; r < boxRow + 3; r++) {
+                    for (let c = boxCol; c < boxCol + 3; c++) {
+                        if (grid[r][c] === num) return false;
+                    }
+                }
 
-            // var squareValid = 0
-            // var squareInvalid = 0
+                return true;
+            }
 
-            let resultingArr = []
+            function shuffle(arr) {
+                for (let i = arr.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [arr[i], arr[j]] = [arr[j], arr[i]];
+                }
+                return arr;
+            }
 
-            const createGrid = () => {
-                if (randomArrays.length < 9) {
-                    end = Date.now()
-                    if ((end - start) >= 10000) {
-                        // console.log(count)
-                        // console.log(randomArrays)
-                        // const randomIndex = Math.floor((Math.random() * 20) + 1)
-                        // randomArrays = solutionArray[randomIndex]
-                        // console.log(`returned solution array ${randomIndex}`)
-                        // return
-                    } else {
-                        if (randomArrays.length === 0) {
-                            randomArrays.push([1, 2, 3, 4, 5, 6, 7, 8, 9].sort(() => Math.random() - 0.5))
-                            return
-                        } else {
-                            const randomArr = [1, 2, 3, 4, 5, 6, 7, 8, 9].sort(() => Math.random() - 0.5)
-                            for (let i = 0; i < 9; i++) {
-                                let discardedNumbers = []
-                                for (let j = 0; j < randomArrays.length; j++) {
-                                    discardedNumbers.push(randomArrays[j][i])
-                                }
-                                for (let j = 0; j < randomArr.length; j++) {
-                                    if (!resultingArr.includes(randomArr[j]) && !discardedNumbers.includes(randomArr[j])) {
-                                        resultingArr.push(randomArr[j])
-                                        break
-                                    }
+            function fillGrid(grid) {
+                for (let row = 0; row < 9; row++) {
+                    for (let col = 0; col < 9; col++) {
+                        if (grid[row][col] === 0) {
+                            const nums = shuffle([1, 2, 3, 4, 5, 6, 7, 8, 9]);
+                            for (const num of nums) {
+                                if (isValid(grid, row, col, num)) {
+                                    grid[row][col] = num;
+                                    if (fillGrid(grid)) return true;
+                                    grid[row][col] = 0;
                                 }
                             }
-                            randomArrays.push(resultingArr)
+                            return false; // Trigger backtrack
                         }
+                    }
+                }
+                return true; // All cells filled
+            }
+
+            function removeClues(grid, clues = 30) {
+                const cells = shuffle([...Array(81).keys()]);
+                let removed = 0;
+
+                for (const cell of cells) {
+                    if (removed >= 81 - clues) break;
+                    const row = Math.floor(cell / 9);
+                    const col = cell % 9;
+                    const backup = grid[row][col];
+                    grid[row][col] = 0;
+
+                    // Verify the puzzle still has a unique solution
+                    if (!hasUniqueSolution(grid)) {
+                        grid[row][col] = backup; // Restore if not unique
+                    } else {
+                        removed++;
                     }
                 }
             }
 
-            createGrid()
+            function hasUniqueSolution(grid) {
+                const copy = grid.map(r => [...r]);
+                let solutions = 0;
 
-            // do {
-            //     createGrid()
-            // } while (randomArrays.length < 9)
+                function solve(grid) {
+                    if (solutions > 1) return; // Early exit
+                    for (let row = 0; row < 9; row++) {
+                        for (let col = 0; col < 9; col++) {
+                            if (grid[row][col] === 0) {
+                                for (let num = 1; num <= 9; num++) {
+                                    if (isValid(grid, row, col, num)) {
+                                        grid[row][col] = num;
+                                        solve(grid);
+                                        grid[row][col] = 0;
+                                    }
+                                }
+                                return; // Dead end
+                            }
+                        }
+                    }
+                    solutions++;
+                }
 
-            // console.log('count restarted', countRestarted, 'times')
-            // console.log('columnValid', columnValid)
-            // console.log('columnInvalid', columnInvalid)
-            // console.log('squareValid', squareValid)
-            // console.log('squareInvalid', squareInvalid)
+                solve(copy);
+                return solutions === 1;
+            }
 
-            console.log('resultingArr', resultingArr)
-            console.log('randomArrays', randomArrays)
+            fillGrid(grid);
+            const solution = grid.map(r => [...r]); // Save full solution
+            removeClues(grid);
 
-            //return randomArrays.flat()
+            return { puzzle: grid, solution };
         }
     </script>
 </body>
