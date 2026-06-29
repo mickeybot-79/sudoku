@@ -79,7 +79,7 @@ const Sudoku = ({ checkCells }) => {
                                 text: allCellElements[i]?.innerHTML
                             }
                             const updatedCell = (
-                                <td id={currentCell.id} key={currentCell.id} className={currentCell.className} contentEditable={true}>{currentCell.text}</td>
+                                <td id={currentCell.id} key={currentCell.id} className={currentCell.className} contentEditable={false}>{currentCell.text}</td>
                             )
                             setAllCells((prevCells) => {
                                 const updatedCells = prevCells
