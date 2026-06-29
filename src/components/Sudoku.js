@@ -44,8 +44,8 @@ const Sudoku = ({ checkCells }) => {
                     cellText = grid[i]
                 }
 
-                //allCellElements.push(<td id={i} key={i} className={cellClass} contentEditable={cellsToDisplay.includes(i) ? false : true}>{cellText}</td>)
-                allCellElements.push(<td id={i} key={i} className={cellClass} contentEditable={false}>{cellText}</td>)
+                allCellElements.push(<td id={i} key={i} className={cellClass} contentEditable={cellsToDisplay.includes(i) ? false : true}>{cellText}</td>)
+                //allCellElements.push(<td id={i} key={i} className={cellClass} contentEditable={false}>{cellText}</td>)
             }
 
             return allCellElements
@@ -79,7 +79,7 @@ const Sudoku = ({ checkCells }) => {
                                 text: allCellElements[i]?.innerHTML
                             }
                             const updatedCell = (
-                                <td id={currentCell.id} key={currentCell.id} className={currentCell.className} contentEditable={false}>{currentCell.text}</td>
+                                <td id={currentCell.id} key={currentCell.id} className={currentCell.className} contentEditable={true}>{currentCell.text}</td>
                             )
                             setAllCells((prevCells) => {
                                 const updatedCells = prevCells
